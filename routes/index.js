@@ -10,7 +10,7 @@ const fastify = require("fastify")({
   // Routes
   fastify.get("/", async (req, reply) => {
     try {
-      const res = await controller.getAllCourses();
+      const res = await controller.getDatabaseEntries();
       reply.type("application/json").code(200);
       return { data: res };
     } catch (error) {
@@ -18,15 +18,15 @@ const fastify = require("fastify")({
       return { error };
     }
   });
-  
-  fastify.post("/", async (req, reply) => {
+
+  fastify.get("/programming-monolith/", async(req, reply) => {
     try {
-      const { name, email } = req.body;
-      reply.type("application/json").code(200);
-      return { data: res };
+        const res = await controller.getProgrammingPage();
+        reply.type("application/json").code(200);
+        return {data : res};
     } catch (error) {
-      reply.type("application/json").code(400);
-      return { data: error };
+        reply.type("application/json").code(400);
+        return { error };
     }
   });
   

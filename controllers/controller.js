@@ -1,10 +1,11 @@
 // controllers/controller.js
 
 // Handles the business Logic
-const bootcampModel = require("../models/model");
+const model = require("../models/model");
 
 const controller = {
-  getAllCourses: async () => await bootcampModel.getCourses()
+  getDatabaseEntries: async () => await model.getDatabaseEntries(),
+  getProgrammingPage: async () => await model.getProgrammingPage()
 };
 
 module.exports = controller;
