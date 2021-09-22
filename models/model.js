@@ -45,9 +45,16 @@ const model = {
                 // 2.1 name the csv {CHAPTER TOGGLE NAME}.csv
                 // 2.2 insert the values above into it 
 
-            // results.map((blocksChildrenList) => {
-            //     console.log(blocksChildrenList);
-            // });
+            results.map((block) => {
+                if (block.type == 'toggle' && block.has_children) {
+                    console.log(block)
+
+                    // these are the names of the csv's 
+                    block.toggle.text.map((toggle) => {
+                        console.log(toggle.plain_text);
+                    })
+                }
+            });
             return results
         } catch(error) {
             console.error(error)
