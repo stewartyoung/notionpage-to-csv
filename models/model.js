@@ -44,21 +44,43 @@ const model = {
             // 2. for each chapter, take the chapter name and create a .csv for it
                 // 2.1 name the csv {CHAPTER TOGGLE NAME}.csv
                 // 2.2 insert the values above into it 
-
+            var chapterNamesAndBlockIds = {};
             results.map((block) => {
-                if (block.type == 'toggle' && block.has_children) {
-                    console.log(block)
-
-                    // these are the names of the csv's 
-                    block.toggle.text.map((toggle) => {
-                        console.log(toggle.plain_text);
-                    })
+                if (block.type == 'toggle') {
+                    for (let i=0; i < block.toggle.text.length; i++){
+                        console.log(block.toggle.text[i].plain_text);
+                        if (block.toggle.text[i].plain_text != 'Objective map'){
+                            chapterNamesAndBlockIds[block.toggle.text[i].plain_text] = block.id;
+                        }
+                        console.log("making request for id: " + block.id + " with chapter name " + block.toggle.text[i].plain_text);
+                        try {
+                            var contentAndQuestions = notion.blocks.children.list({
+                                block_id: block.id
+                            });
+                            console.log(contentAndQuestions);
+                        } catch(error) {
+                            console.log(error);
+                        };
+                    }
+                    // these are the names of the csv's and their block id's containing content and questions
                 }
             });
-            return results
+            // get the Content and Questions blocks
+            // getContentAndQuestions: async(chapterNamesAndBlockIds) => {
+            //     try {
+            //         const {contentAndQuestions} = await notion.blocks.children.list({
+            //             block_id: block.id
+            //         });
+            //         console.log(contentAndQuestions);
+            //     } catch(error) {
+            //         console.log(error);
+            //     }
+            // }
+            return chapterNamesAndBlockIds;
         } catch(error) {
             console.error(error)
         }
-    }
+    },
+    
 };
 module.exports = model;
