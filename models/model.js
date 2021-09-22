@@ -35,6 +35,16 @@ const model = {
             const { results } = await notion.blocks.children.list({
                 block_id: gcpBlockId
             });
+
+            // TODO: Here we need to put the logic of putting things into csv properly
+
+            // 1. if toggle name contains Content or Questions
+                // 1.1 the toggles texts within them are the questions
+                // 1.2 the information in the toggle are the answers
+            // 2. for each chapter, take the chapter name and create a .csv for it
+                // 2.1 name the csv {CHAPTER TOGGLE NAME}.csv
+                // 2.2 insert the values above into it 
+
             // results.map((blocksChildrenList) => {
             //     console.log(blocksChildrenList);
             // });
