@@ -50,7 +50,8 @@ const model = {
                     for (let i=0; i < block.toggle.text.length; i++){
                         console.log(block.toggle.text[i].plain_text);
                         if (block.toggle.text[i].plain_text != 'Objective map'){
-                            chapterNamesAndBlockIds[block.toggle.text[i].plain_text] = block.id;
+                            // these are the names of the csv's and their block id's containing content and questions
+                            chapterNamesAndBlockIds[block.toggle.text[i].plain_text] = {"ChapterBlockID": block.id };
                         }
                         console.log("making request for id: " + block.id + " with chapter name " + block.toggle.text[i].plain_text);
                             try {
@@ -58,14 +59,14 @@ const model = {
                                 var contentAndQuestions = await notion.blocks.children.list({
                                     block_id: block.id
                                 });
-                                console.log(contentAndQuestions);
+                                chapterNamesAndBlockIds[block.toggle.text[i].plain_text]
+                                // console.log(contentAndQuestions);
                             } catch(error) {
                                 console.log("catch");
                                 console.log(error);
                             };
                         }
                     }
-                    // these are the names of the csv's and their block id's containing content and questions
                 }
             );
             // get the Content and Questions blocks
@@ -79,6 +80,7 @@ const model = {
             //         console.log(error);
             //     }
             // }
+            console.log(chapterNamesAndBlockIds)
             return chapterNamesAndBlockIds;
         } catch(error) {
             console.error(error)
