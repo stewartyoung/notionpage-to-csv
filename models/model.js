@@ -45,7 +45,7 @@ const model = {
                 // 2.1 name the csv {CHAPTER TOGGLE NAME}.csv
                 // 2.2 insert the values above into it 
             var chapterNamesAndBlockIds = {};
-            results.map((block) => {
+            results.map(async (block) => {
                 if (block.type == 'toggle') {
                     for (let i=0; i < block.toggle.text.length; i++){
                         console.log(block.toggle.text[i].plain_text);
@@ -53,18 +53,21 @@ const model = {
                             chapterNamesAndBlockIds[block.toggle.text[i].plain_text] = block.id;
                         }
                         console.log("making request for id: " + block.id + " with chapter name " + block.toggle.text[i].plain_text);
-                        try {
-                            var contentAndQuestions = notion.blocks.children.list({
-                                block_id: block.id
-                            });
-                            console.log(contentAndQuestions);
-                        } catch(error) {
-                            console.log(error);
-                        };
+                            try {
+                                console.log("try");
+                                var contentAndQuestions = await notion.blocks.children.list({
+                                    block_id: block.id
+                                });
+                                console.log(contentAndQuestions);
+                            } catch(error) {
+                                console.log("catch");
+                                console.log(error);
+                            };
+                        }
                     }
                     // these are the names of the csv's and their block id's containing content and questions
                 }
-            });
+            );
             // get the Content and Questions blocks
             // getContentAndQuestions: async(chapterNamesAndBlockIds) => {
             //     try {
