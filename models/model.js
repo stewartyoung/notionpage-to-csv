@@ -67,15 +67,22 @@ const model = {
                                 var questionQuestions = await notion.blocks.children.list({
                                     block_id: chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["QuestionsBlockID"]
                                 })
-                                
+                                togglesInsideChapterContent = {}
                                 for (var j=0; j < contentQuestions.results.length; j++){
                                     if (contentQuestions.results[j].type == 'toggle') {
+                                        contentQuestionIndex = "ContentQuestion" + j.toString();
+                                        contentQuestionToggleText = await notion.blocks.children.list({
+                                            block_id: contentQuestions.results[j].id
+                                        });
+                                        togglesInsideChapterContent[block.toggle.text[i].plain_text] = { contentQuestionIndex : contentQuestions.results[j].id };
                                         console.log("Content " + block.toggle.text[i].plain_text + " question id " + j.toString() + " : " + contentQuestions.results[j].id);
+                                        console.log(contentQuestionToggleText)
                                     }
                                 }
-                                for (var k=0; k < questionQuestions.results.length; k++){
-                                    console.log("Question " + block.toggle.text[i].plain_text + " question: " + k.toString() + " : " + questionQuestions.results[k].id);
-                                }
+                                // togglesInsideChapterQuestions = {}
+                                // for (var k=0; k < questionQuestions.results.length; k++){
+                                //     console.log("Question " + block.toggle.text[i].plain_text + " question: " + k.toString() + " : " + questionQuestions.results[k].id);
+                                // }
                                 // console.log("content:", contentAndQuestions.results[0].id);
                                 // console.log("questions:", contentAndQuestions.results[1].id);
                                 // console.log(chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["ContentBlockID"])
