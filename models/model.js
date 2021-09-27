@@ -59,8 +59,34 @@ const model = {
                                 var contentAndQuestions = await notion.blocks.children.list({
                                     block_id: block.id
                                 });
-                                chapterNamesAndBlockIds[block.toggle.text[i].plain_text]
-                                // console.log(contentAndQuestions);
+                                chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["ContentBlockID"] = contentAndQuestions.results[0].id;
+                                chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["QuestionsBlockID"] = contentAndQuestions.results[1].id;
+                                var contentQuestions = await notion.blocks.children.list({
+                                    block_id: chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["ContentBlockID"]
+                                })
+                                var questionQuestions = await notion.blocks.children.list({
+                                    block_id: chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["QuestionsBlockID"]
+                                })
+                                
+                                for (var j=0; j < contentQuestions.results.length; j++){
+                                    if (contentQuestions.results[j].type == 'toggle') {
+                                        console.log("Content " + block.toggle.text[i].plain_text + " question id " + j.toString() + " : " + contentQuestions.results[j].id);
+                                    }
+                                }
+                                for (var k=0; k < questionQuestions.results.length; k++){
+                                    console.log("Question " + block.toggle.text[i].plain_text + " question: " + k.toString() + " : " + questionQuestions.results[k].id);
+                                }
+                                // console.log("content:", contentAndQuestions.results[0].id);
+                                // console.log("questions:", contentAndQuestions.results[1].id);
+                                // console.log(chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["ContentBlockID"])
+                                // console.log(chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["QuestionsBlockID"])
+                                // for (let j=0; j <)
+
+                                // need to make another request for the blocks within the content and questions blocks using their id's
+
+
+                                // console.log("content: "+ block.toggle.text[i].plain_text + ": "+ contentAndQuestions.results[0].toggle.text);
+                                // console.log("questions:" + block.toggle.text[i].plain_text + ": "+ contentAndQuestions.results[1].toggle.text);
                             } catch(error) {
                                 console.log("catch");
                                 console.log(error);
@@ -69,17 +95,6 @@ const model = {
                     }
                 }
             );
-            // get the Content and Questions blocks
-            // getContentAndQuestions: async(chapterNamesAndBlockIds) => {
-            //     try {
-            //         const {contentAndQuestions} = await notion.blocks.children.list({
-            //             block_id: block.id
-            //         });
-            //         console.log(contentAndQuestions);
-            //     } catch(error) {
-            //         console.log(error);
-            //     }
-            // }
             console.log(chapterNamesAndBlockIds)
             return chapterNamesAndBlockIds;
         } catch(error) {
