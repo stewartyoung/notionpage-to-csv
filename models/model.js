@@ -75,7 +75,8 @@ const model = {
                                             block_id: contentQuestions.results[j].id
                                         });
                                         togglesInsideChapterContent[block.toggle.text[i].plain_text] = { contentQuestionIndex : contentQuestions.results[j].id };
-                                        console.log("Content " + block.toggle.text[i].plain_text + " question id " + j.toString() + " : " + contentQuestions.results[j].id);
+                                        console.log("Content " + block.toggle.text[i].plain_text + " question id " + j.toString() + " : " + contentQuestions.results[j].id + " : " + contentQuestions.results[j]);
+                                        console.log(contentQuestions.results[j].toggle.text[0].plain_text);
                                         console.log(contentQuestionToggleText)
                                     }
                                 }
