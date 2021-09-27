@@ -16,13 +16,7 @@ const model = {
             const res = results.map((page) => {
                 return {
                     pageId: page.id,
-                //   videoURL: page.properties["YouTube Video"].url,
                     title: page.properties.Name.title[0].plain_text,
-                //   tags: page.properties.Tags.multi_select.map((tag) => tag.name),
-                //   summary: page.properties.Summary.rich_text[0].plain_text,
-                //   author: page.properties.Author.rich_text[0].plain_text,
-                //   startDate: page.properties.Date.date.start,
-                //   endDate: page.properties.Date.date.end,
                 };
             });
             return res;
@@ -77,24 +71,9 @@ const model = {
                                         togglesInsideChapterContent[block.toggle.text[i].plain_text] = { contentQuestionIndex : contentQuestions.results[j].id };
                                         console.log("Content " + block.toggle.text[i].plain_text + " question id " + j.toString() + " : " + contentQuestions.results[j].id + " : " + contentQuestions.results[j]);
                                         console.log(contentQuestions.results[j].toggle.text[0].plain_text);
-                                        console.log(contentQuestionToggleText)
+                                        console.log(contentQuestionToggleText);
                                     }
                                 }
-                                // togglesInsideChapterQuestions = {}
-                                // for (var k=0; k < questionQuestions.results.length; k++){
-                                //     console.log("Question " + block.toggle.text[i].plain_text + " question: " + k.toString() + " : " + questionQuestions.results[k].id);
-                                // }
-                                // console.log("content:", contentAndQuestions.results[0].id);
-                                // console.log("questions:", contentAndQuestions.results[1].id);
-                                // console.log(chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["ContentBlockID"])
-                                // console.log(chapterNamesAndBlockIds[block.toggle.text[i].plain_text]["QuestionsBlockID"])
-                                // for (let j=0; j <)
-
-                                // need to make another request for the blocks within the content and questions blocks using their id's
-
-
-                                // console.log("content: "+ block.toggle.text[i].plain_text + ": "+ contentAndQuestions.results[0].toggle.text);
-                                // console.log("questions:" + block.toggle.text[i].plain_text + ": "+ contentAndQuestions.results[1].toggle.text);
                             } catch(error) {
                                 console.log("catch");
                                 console.log(error);
